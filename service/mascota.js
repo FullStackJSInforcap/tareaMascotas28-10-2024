@@ -8,7 +8,7 @@ const findAllMascotas = async () => {
         });
         return {
             msg: 'Las mascotas son',
-            status: 400,
+            status: 200,
             datos: mascotas.map(mascota => mascota.toJSON())
         }
     } catch (error) {
@@ -23,7 +23,9 @@ const findAllMascotas = async () => {
 
 const findByIdMascota = async (id) => {
     try {
-        const mascota = await Mascota.findByPk(id);
+        const mascota = await Mascota.findByPk(id, {
+            include: Duenio
+        });
         if (mascota) {
             return {
                 msg: `Los datos  de la mascota con id ${id} son`,
